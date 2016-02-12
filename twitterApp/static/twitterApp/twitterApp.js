@@ -7,7 +7,7 @@ app.controller('QueryCtrl',['$scope','$http',function($scope,$http){
          method: 'GET',
          url: '/twitterApp/queryTwitterApi',
          params: {
-            q: $scope.queryTerm,
+            screen_name: $scope.queryTerm,
          }
       }).then(function successCallback(response){
          $scope.queryData=response.data;

@@ -19,7 +19,7 @@ def queryTwitterApi(request):
    headers={
       'Authorization': 'Bearer ' + getBearerToken(),
    }
-   urlStr='https://api.twitter.com/1.1/search/tweets.json?q=' + urllib.quote_plus(request.GET['q'])
+   urlStr='https://api.twitter.com/1.1/users/show.json?screen_name=' + urllib.quote_plus(request.GET['screen_name'])
    resp=requests.get(urlStr,headers=headers)
    return HttpResponse(resp)
 

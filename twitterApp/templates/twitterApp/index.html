@@ -11,11 +11,11 @@
 <div class='container-fluid'>
    <!-- Twitter query result -->
    <div class='row'>
-      <div ng-repeat='status in queryData.statuses'>
          {%verbatim%}
-         {{status.text}}
+         <p>{{queryData.name}}</p>
+         <p>{{queryData.description}}</p>
+         <p><h4>latest tweet</h4></p>
          {%endverbatim%}
-      </div>
    </div>
 </div>
 </body>
