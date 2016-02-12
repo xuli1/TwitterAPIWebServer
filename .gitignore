@@ -1,0 +1,4 @@
+*.pyc
+*.swp
+*/.git_bk/*
+twitterApp/settings.py

@@ -1,0 +1,22 @@
+{% extends 'twitterApp/base.html' %}
+{% block content %}
+<title>Submit query to Twitter API</title>
+<body ng-controller='QueryCtrl'>
+<div class='container-fluid'>
+   <form>
+      <input type='text' ng-model='queryTerm' placeholder='enter Twitter query' name='twitterQueryStr'></input>
+      <button type='button' ng-click='queryTwitterApi()' class='btn btn-primary'>Submit query to Twitter API</button>
+   </form>
+</div>
+<div class='container-fluid'>
+   <!-- Twitter query result -->
+   <div class='row'>
+      <div ng-repeat='status in queryData.statuses'>
+         {%verbatim%}
+         {{status.text}}
+         {%endverbatim%}
+      </div>
+   </div>
+</div>
+</body>
+{% endblock %}
