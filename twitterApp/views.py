@@ -7,13 +7,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader,RequestContext
 
 def index(request):
-   """
-   """
+   '''provide response for index page
+   '''
    template = loader.get_template('twitterApp/index.html')
    context=RequestContext(request,{})
    return HttpResponse(template.render(context))
 
 def queryTwitterApi(request):
+   '''query Twitter API and return Twitter's response
+   '''
    headers={
       'Authorization': 'Bearer ' + getBearerToken(),
    }
@@ -26,6 +28,14 @@ def queryTwitterApi(request):
 #
 # Note: authorization string is pre-calculated based on app credential and is in base64 format
 def getBearerToken():
+   '''obtain Twitter application-only bearer token
+
+   Twitter is only queried for bearer token if bearer token has not been initialized
+   If bearer token has been initializaed, then the initialized token is used and Twitter is not queries again for bearer token
+   
+   IMPORTANT:
+   initialize CONSUMER_KEY and CONSUMER_SECRET in settings.py, so bearer token can be obtained
+   '''
    # create static variable using function attribute, token, to hold bearer token
    if getBearerToken.token == '':
       # bearer token has not been initialized
