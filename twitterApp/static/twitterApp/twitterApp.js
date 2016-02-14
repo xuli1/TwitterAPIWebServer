@@ -22,8 +22,17 @@ app.controller('QueryCtrl',['$scope','$http','$sce',function($scope,$http,$sce){
             screen_name: $scope.queryTerm,
          }
       }).then(function successCallback(response){
-         $scope.queryData=response.data;
-         $scope.tweetButtonAvail=true;
+         if (response.data.errors==null){
+            // Tweet ID is found
+            $scope.queryData=response.data;
+            $scope.tweetButtonAvail=true;
+         } else {
+            // Tweet ID is not found
+            $scope.queryData={
+               'name': 'Twitter ID not found :(',
+               'description': ''
+            };
+         }
       },function errorCallback(response){
          $scope.queryData=null;
       });
