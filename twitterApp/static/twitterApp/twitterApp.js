@@ -1,7 +1,8 @@
-var app=angular.module('twitterApp',[]);
-app.controller('QueryCtrl',['$scope','$http',function($scope,$http){
+var app=angular.module('twitterApp',['ngSanitize']);
+app.controller('QueryCtrl',['$scope','$http','$sce',function($scope,$http,$sce){
    $scope.queryTerm='';
    $scope.queryData=null;
+   $scope.embedStatus=null;
    $scope.queryTwitterApi=function(){
       $http({
          method: 'GET',
@@ -15,5 +16,17 @@ app.controller('QueryCtrl',['$scope','$http',function($scope,$http){
          $scope.queryData=null;
       });
       $scope.queryTerm='';
+   }
+   $scope.queryEmbedStatus=function(id_str){
+      $http({
+         method: 'GET',
+         url: '/twitterApp/queryEmbedStatus',
+         params: {
+            id: id_str
+         }
+      }).then(function successCallback(response){
+         $scope.embedStatus=$sce.trustAsHtml(response.data.html);
+      },function errorCallback(response){
+      });
    }
 }]);

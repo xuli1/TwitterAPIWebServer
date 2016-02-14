@@ -5,4 +5,5 @@ urlpatterns=patterns(
    '',
    url(r'^$',views.index,name='index'),
    url(r'^queryTwitterApi/$',views.queryTwitterApi,name='queryTwitterApi'),
+   url(r'^queryEmbedStatus/$',views.queryEmbedStatus,name='queryEmbedStatus')
 )

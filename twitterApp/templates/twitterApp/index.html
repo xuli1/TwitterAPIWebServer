@@ -12,9 +12,11 @@
    <!-- Twitter query result -->
    <div class='row'>
          {%verbatim%}
-         <p>{{queryData.name}}</p>
+         <p><h3>{{queryData.name}}</h3></p>
          <p>{{queryData.description}}</p>
          <p><h4>latest tweet</h4></p>
+         <p><button type='button' class='btn btn-secondary' ng-click='queryEmbedStatus(queryData.status.id_str)'>Get latest tweet</button></p>
+         <div ng-bind-html='embedStatus'></div>
          {%endverbatim%}
    </div>
 </div>

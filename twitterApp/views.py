@@ -23,6 +23,16 @@ def queryTwitterApi(request):
    resp=requests.get(urlStr,headers=headers)
    return HttpResponse(resp)
 
+def queryEmbedStatus(request):
+   ''' query Twitter API for embedded status (tweet) for given id
+   '''
+   headers={
+      'Authorization': 'Bearer ' + getBearerToken(),
+   }
+   urlStr='https://api.twitter.com/1/statuses/oembed.json?id=' + urllib.quote_plus(request.GET['id'])
+   resp=requests.get(urlStr,headers=headers)
+   return HttpResponse(resp)
+
 # obtain Twitter bearer token from Twitter api website
 # return: bearer token string
 #
