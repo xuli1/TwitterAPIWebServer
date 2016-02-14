@@ -1,24 +1,28 @@
 {% extends 'twitterApp/base.html' %}
 {% block content %}
+{% load staticfiles %}
+<link rel='stylesheet' href="{% static "twitterApp/style.css" %}"></link>
 <title>Submit query to Twitter API</title>
 <body ng-controller='QueryCtrl'>
-<div class='container-fluid'>
+<div class='container-fluid bg1'>
+   <!-- following search box query Twitter API to find specified user ID -->
    <form ng-submit='queryTwitterApi()'>
-      <input type='text' ng-model='queryTerm' placeholder='enter Twitter query'></input>
-      <input type='submit' value='Submit query to Twitter API' class='btn btn-primary'></input>
+      <input type='text' ng-model='queryTerm' placeholder='enter Twitter ID'></input>
+      <input type='submit' value='Search Twitter ID' class='btn btn-primary'></input>
    </form>
 </div>
-<div class='container-fluid'>
+<div class='container-fluid bg2'>
    <!-- Twitter query result -->
-   <div class='row'>
-         {%verbatim%}
-         <p><h3>{{queryData.name}}</h3></p>
-         <p>{{queryData.description}}</p>
-         <p><h4>latest tweet</h4></p>
-         <p><button type='button' class='btn btn-secondary' ng-click='queryEmbedStatus(queryData.status.id_str)'>Get latest tweet</button></p>
-         <div ng-bind-html='embedStatus'></div>
-         {%endverbatim%}
-   </div>
+   {%verbatim%}
+   <p><h3>{{queryData.name}}</h3></p>
+   <p>{{queryData.description}}</p>
+   {%endverbatim%}
+</div>
+<div class='container-fluid'>
+   <p><button type='button' class='btn btn-secondary' ng-show='tweetButtonAvail' ng-click='queryEmbedStatus(queryData.status.id_str)'>Get latest tweet</button></p>
+</div>
+<div class='container-fluid'>
+   <div class='row' ng-show='embedTweetAvail' ng-bind-html='embedStatus'></div>
 </div>
 </body>
 {% endblock %}
