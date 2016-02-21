@@ -2,3 +2,4 @@
 *.swp
 */.git_bk/*
 twitterApp/auth.py
+_*
