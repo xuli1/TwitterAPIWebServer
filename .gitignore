@@ -1,4 +1,4 @@
 *.pyc
 *.swp
 */.git_bk/*
-twitterApp/settings.py
+twitterApp/auth.py
