@@ -22,6 +22,7 @@ def index(request):
 def queryTwitterApi(request):
    '''
    query Twitter API using TwitterAPI python wrapper lib
+   and return TWitter API response in JSON format
 
    IMPORTANT:
    application-only authentication is required for accessing Twitter API
