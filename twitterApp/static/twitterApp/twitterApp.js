@@ -19,7 +19,9 @@ app.controller('QueryCtrl',['$scope','$http','$sce',function($scope,$http,$sce){
          method: 'GET',
          url: '/twitterApp/queryTwitterApi',
          params: {
-            screen_name: $scope.queryTerm,
+            'action': 'users/show',
+            'queryKey': 'screen_name',
+            'queryVal': $scope.queryTerm,
          }
       }).then(function successCallback(response){
          if (response.data.errors==null){
@@ -41,9 +43,11 @@ app.controller('QueryCtrl',['$scope','$http','$sce',function($scope,$http,$sce){
    $scope.queryEmbedStatus=function(id_str){
       $http({
          method: 'GET',
-         url: '/twitterApp/queryEmbedStatus',
+         url: '/twitterApp/queryTwitterApi',
          params: {
-            id: id_str
+            'action': 'statuses/oembed',
+            'queryKey': 'id',
+            'queryVal': id_str
          }
       }).then(function successCallback(response){
          $scope.embedStatus=$sce.trustAsHtml(response.data.html);

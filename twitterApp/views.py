@@ -1,90 +1,49 @@
-from twitterApp import settings
-import base64
-import requests
-import urllib
-import re
-from django.http import HttpResponse, HttpResponseRedirect
+from auth import CONSUMER_KEY, CONSUMER_SECRET
+from TwitterAPI import TwitterAPI
+from django.http import HttpResponse
 from django.template import loader,RequestContext
 
+'''
+global variable for TwitterAPI object within this module
+because Python do not allow variable declaration only
+it is temporarily assigned empty string
+correctly initialized in queryTwitterApi()
+'''
+api=''
+
 def index(request):
-   '''provide response for index page
+   '''
+   provide response for index page
    '''
    template = loader.get_template('twitterApp/index.html')
    context=RequestContext(request,{})
    return HttpResponse(template.render(context))
 
 def queryTwitterApi(request):
-   '''query Twitter API and return Twitter's response
    '''
-   headers={
-      'Authorization': 'Bearer ' + getBearerToken(),
-   }
-   urlStr='https://api.twitter.com/1.1/users/show.json?screen_name=' + urllib.quote_plus(request.GET['screen_name'])
-   resp=requests.get(urlStr,headers=headers)
-   return HttpResponse(resp)
+   query Twitter API using TwitterAPI python wrapper lib
 
-def queryEmbedStatus(request):
-   ''' query Twitter API for embedded status (tweet) for given id
-   '''
-   headers={
-      'Authorization': 'Bearer ' + getBearerToken(),
-   }
-   urlStr='https://api.twitter.com/1/statuses/oembed.json?id=' + urllib.quote_plus(request.GET['id'])
-   resp=requests.get(urlStr,headers=headers)
-   return HttpResponse(resp)
-
-# obtain Twitter bearer token from Twitter api website
-# return: bearer token string
-#
-# Note: authorization string is pre-calculated based on app credential and is in base64 format
-def getBearerToken():
-   '''obtain Twitter application-only bearer token
-
-   Twitter is only queried for bearer token if bearer token has not been initialized
-   If bearer token has been initializaed, then the initialized token is used and Twitter is not queries again for bearer token
-   
    IMPORTANT:
-   initialize CONSUMER_KEY and CONSUMER_SECRET in settings.py, so bearer token can be obtained
-   '''
-   # create static variable using function attribute, token, to hold bearer token
-   if getBearerToken.token == '':
-      # bearer token has not been initialized
-      # send POST request to Twitter api server
-      bearerTokenCredential=genBearerTokenCred64(urlEncodeConsumerKey(settings.CONSUMER_KEY),urlEncodeConsumerSecret(settings.CONSUMER_SECRET))
-      headers={
-         'Authorization': 'Basic ' + bearerTokenCredential,
-         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      }
-      requestBody='grant_type=client_credentials'
-      r=requests.post('https://api.twitter.com/oauth2/token',headers=headers,data=requestBody)
+   application-only authentication is required for accessing Twitter API
 
-      # responose body contain bearer token
-      regex=re.compile('"access_token":"(.+)"')
-      result=regex.search(r.text)
-      getBearerToken.token=result.group(1)
+   a Twitter app must be created with Twitter and corresponding consumer key and secret generated.
+   ensure key and secret stored in auth.py
 
-   return getBearerToken.token
-# function attribute must be initialized
-getBearerToken.token=''
+   handles GET request with 'action' parameter for Twitter API type, such as 'user/show',
+   'queryKey', such as 'screen_name' for 'user/show' query,
+   'queryVal' for actual query value
+   '''
+   global api
+   if api=='':
+      # TwitterAPI object has not been initialized
+      # obtain appliation-only authentication and initialize object
+      api=TwitterAPI(CONSUMER_KEY,
+                     CONSUMER_SECRET,
+                     auth_type='oAuth2')
 
-def genBearerTokenCred64(encodedConsumerKey, encodedConsumerSecret):
-   '''
-   generate bearer token credential in base64 encoding from encoded consumer key and secret
-   '''
-   return base64.b64encode(encodedConsumerKey + ':' + encodedConsumerSecret)
-
-def urlEncodeConsumerKey(consumerKey):
-   '''
-   url encode consumer key  
-
-   implementation detail may change in future
-   '''
-   return consumerKey
-
-def urlEncodeConsumerSecret(consumerSecret):
-   '''
-   url encode consumer secret
-
-   implementation detail may change in future
-   '''
-   return consumerSecret
+   # perform TwitterAPI query and return response body
+   action=request.GET['action'];
+   queryKey=request.GET['queryKey'];
+   queryVal=request.GET['queryVal'];
+   resp=api.request(action,{queryKey: queryVal})
+   return HttpResponse(resp.text)
