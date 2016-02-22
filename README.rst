@@ -64,7 +64,8 @@ Directory Structure
 Tests
 -----
 
-``basic.js`` is end-to-end web client `Protractor`_ test, which verify ABC News Twitter ID can be found and latest tweet from ABC can be received and displayed
+``basic.js`` in ``test/protractor`` is end-to-end web client `Protractor`_ test, which verify basic functionality for this web app.
+In particular, test check ABC News Twitter ID can be found and latest tweet from ABC can be received and displayed
 
 To run test, follow install instruction at `Protractor`_ website.
 Then in ``test/protractor`` dir, ::
