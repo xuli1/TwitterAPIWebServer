@@ -7,5 +7,15 @@ Introduction
 ------------
 This is a web application which allow user to query `Twitter API`_ to find specific Twitter ID and then find the latest Tweet associated with the specific Twitter ID
 
-.. _`Twitter API`: https://dev.twitter.com/rest/public
+Web application demo at `demo`_
 
+.. _`Twitter API`: https://dev.twitter.com/rest/public
+.. _`demo`: FIXME
+
+Python Django framework provide server back-end:
+- performs Twitter API application-only authentication
+- process HTTP request from user
+- query Twitter API based on user request
+- send HTTP response which include Twitter API response data
+
+AngularJs 1 library provide client-side AJAX capability
