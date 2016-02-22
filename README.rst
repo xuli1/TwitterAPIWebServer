@@ -21,6 +21,9 @@ Python Django framework provide server back-end:
 
 AngularJs 1 library provide client-side AJAX capability
 
+If Twitter API does not require end-point authentication, then client web-page can use Angular Js to directly query Twitter API.
+But with authentication requirement, a Django server is required as an authenticated end-point, which forward Twitter API query and return response
+
 -----------
 Requirement
 -----------
@@ -49,9 +52,27 @@ Directory Structure
 
       templates/twitterApp          template files by Django to generate html
 
+      test/protractor               web end-to-end test using Protractor library
+         basic.js                   Protractor end-to-end direct test
+         conf.js                    configuration for Protractor
+
       auth.py.rename                must rename to auth.py and include valid Twitter consumer keys
       urls.py                       'twitterApp' url router
       views.py                      'twitterApp' HTTP response generator
+
+-----
+Tests
+-----
+
+``basic.js`` is end-to-end web client `Protractor`_ test, which verify ABC News Twitter ID can be found and latest tweet from ABC can be received and displayed
+
+To run test, follow install instruction at `Protractor`_ website.
+Then in ``test/protractor`` dir, ::
+
+   $ webdriver-manager start
+   $ protractor conf.js
+
+.. _`Protractor`: http://angular.github.io/protractor/#/
 
 -----
 Notes
