@@ -56,3 +56,10 @@ Directory Structure
 -----
 Notes
 -----
+
+Feel free to modify and reuse this demo project for your own use.  
+
+Important notes for getting this app to work:
+
+- ``auth.py.rename`` must be renamed to ``auth.py`` and valid Twitter consumer keys must be entered
+- ``twitterApp.js`` make AJAX request to hard-coded relative url 'twitterApp/queryTwitterApi'.  If url router is changed, the javascript must also be accordingly modified
