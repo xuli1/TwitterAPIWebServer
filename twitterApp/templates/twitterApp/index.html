@@ -14,8 +14,8 @@
 <div class='container-fluid bg2'>
    <!-- Twitter query result -->
    {%verbatim%}
-   <p><h3>{{queryData.name}}</h3></p>
-   <p>{{queryData.description}}</p>
+   <p><h3 ng-bind='queryData.name'></h3></p>
+   <p ng-bind='queryData.description'></p>
    {%endverbatim%}
 </div>
 <div class='container-fluid'>
