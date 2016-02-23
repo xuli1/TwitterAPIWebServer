@@ -20,6 +20,7 @@ Python Django framework provide server back-end:
 - send HTTP response which include Twitter API response data
 
 AngularJs 1 library provide client-side AJAX capability
+
 Bootstrap css is used for HTML styling
 
 If Twitter API does not require end-point authentication, then client web-page can use Angular Js to directly query Twitter API.
