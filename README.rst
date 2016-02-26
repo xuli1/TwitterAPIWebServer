@@ -36,6 +36,32 @@ This web app requires:
 
 .. _`TwitterAPI wrapper python package`: https://github.com/geduldig/TwitterAPI 
 
+----------------------------
+Running web app for yourself
+----------------------------
+Ensure Python virtualenv package is installed ::
+
+   $ virtualenv myApp
+   $ cd myApp
+   $ source bin/activate
+
+above create virtual env and enters virtual env ::
+
+   (myApp) $ git clone --depth 1 https://github.com/xuli1/TwitterAPIWebServer.git
+
+create local project repository ::
+
+   (myApp) $ cd TwitterAPIWebServer
+   (myApp) $ pip install -r requirements.txt
+
+add valid CONSUMER_KEY and CONSUMER_SECRET in twitterApp/auth.py.rename and rename auth.py.rename to auth.py
+
+run local web server ::
+
+   (myApp) $ python manage.py runserver
+
+visit site at http://127.0.0.1:8000/
+
 -------------------
 Directory Structure
 -------------------
