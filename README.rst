@@ -7,7 +7,7 @@ Introduction
 ------------
 This is a demo web application which allow user to query `Twitter API`_ to find specific Twitter ID and then find the latest Tweet associated with the specific Twitter ID
 
-Web application demo at `demo`_ using Amazon AWS ElasticBeanstalk
+Web application `demo`_ available using Amazon AWS ElasticBeanstalk
 
 .. _`Twitter API`: https://dev.twitter.com/rest/public
 .. _`demo`: http://twitterapidemoenv.hm2rmknwwg.us-west-2.elasticbeanstalk.com
